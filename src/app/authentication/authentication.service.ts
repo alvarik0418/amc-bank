@@ -38,7 +38,7 @@ export class AuthenticationService {
   singin(payload: Login): Observable<AccessToken>{
     return this.http.post<AccessToken>(`${this.endpoint}/signin`, payload).
     pipe(
-      catchError(this.handleError<AccessToken>('postLogin')
-    ));
+      catchError(this.handleError<AccessToken>('postLogin'))
+    );
   }
 }

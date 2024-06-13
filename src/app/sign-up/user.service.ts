@@ -7,7 +7,7 @@ import { AccessToken } from '../authentication/access-token';
 @Injectable({
   providedIn: 'root'
 })
-export class SignUpService {
+export class UserService {
 
   private endPoint = "http://localhost:3000";
 
@@ -25,9 +25,16 @@ export class SignUpService {
   }
 
   signUp(user: Users): Observable<AccessToken>{
-    return this.http.post<AccessToken>(`${this.endPoint}/signup`,user).
+    return this.http.post<AccessToken>(`${this.endPoint}/signup`,user, this.httpOptions).
     pipe(
       catchError(this.handleError<AccessToken>('post signUp'))
     )
+  }
+
+  getProfile(): Observable<Users>{
+    return this.http.get<Users>(`${this.endPoint}/users/profile`).
+           pipe(
+            catchError(this.handleError<Users>('get profile'))
+           )
   }
 }

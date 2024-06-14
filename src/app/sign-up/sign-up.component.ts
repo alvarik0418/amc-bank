@@ -15,41 +15,5 @@ import { UserFormComponent } from '../user-form/user-form.component';
 })
 export class SignUpComponent {
   title: string = "Sign Up";
-  componentNameOrigin: string = "signUp";
- /* signUpForm!: FormGroup;
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private signUpService: UserService,
-    private router:Router
-  ){}
-
-  ngOnInit(){
-    this.signUpForm = this.formBuilder.group(
-      {
-        firstName: ['',[Validators.required, Validators.maxLength(50)]],
-        lastName: ['',[Validators.required, Validators.maxLength(50)]],
-        email: ['',[Validators.required, Validators.email]],
-        password: ['', Validators.required]
-      }
-    )
-  }
-
-  onSubmit(){
-    if (this.signUpForm.valid){
-      const signUp = this.signUpForm.getRawValue() as Users
-
-      this.signUpService.signUp(signUp).subscribe(
-        (accessToken: AccessToken) => {
-          localStorage.setItem('accessToken', accessToken.accessToken);
-        });
-      
-      console.log(signUp);
-      this.router.navigate(['/']);
-    }
-    else {
-      console.log("Form is invalid");
-    }
-  }
-    */
+  componentNameOrigin: string = "signUp"; 
 }

@@ -59,10 +59,9 @@ export class UserFormComponent {
           this.userService.signUp(signUp).subscribe(
             (accessToken: AccessToken) => {
               localStorage.setItem('accessToken', accessToken.accessToken);
+              console.log(signUp);
+            this.router.navigate(['/']);
             });
-          
-          console.log(signUp);
-          this.router.navigate(['/']);
         }
       }
       else {

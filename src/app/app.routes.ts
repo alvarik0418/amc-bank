@@ -17,7 +17,8 @@ export const routes: Routes = [
         loadComponent: () => import('./sign-up/sign-up.component').then(module => module.SignUpComponent)
     },
     {path:'transactions', canActivate: [authGuard] , component: TransactionsComponent},
-    {path:'accounts', component: AccountsComponent},
-    {path:'profile', component: ProfileComponent},
+    {path:'accounts' , canActivate: [authGuard], component: AccountsComponent},
+    {path:'profile', canActivate: [authGuard], component: ProfileComponent},
     {path:'login', component: LoginComponent},
+    // { path: '**', component: NoFoundComponent}
 ];

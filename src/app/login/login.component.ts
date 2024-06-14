@@ -36,9 +36,8 @@ export class LoginComponent {
       this.authService.singin(login).subscribe(
         (accessToken: AccessToken) => {
           localStorage.setItem('accessToken', accessToken.accessToken);
-        });
-      
-      this.router.navigate(['/']);
+          this.router.navigate(['/']);
+        });     
     }
     else {
       console.log("Form is invalid");

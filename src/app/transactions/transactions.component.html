@@ -1,1 +1,27 @@
 <p>transactions works!</p>
+<table>
+    <tr>
+        <!--<th>Id</th>-->
+        <th>Type</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Balance</th>
+        <th>Date</th>
+    </tr>
+    <tr *ngFor="let transaction of transactions">
+        <!--<td>{{transaction.id}}</td>-->
+        <td>{{transaction.type}}</td>
+        <td>{{transaction.source}}</td>
+        <td>{{transaction.destination}}</td>
+        <td>{{transaction.amount}}</td>
+        <td>{{transaction.category}}</td>
+        <td>{{transaction.description}}</td>
+        <td>{{transaction.status}}</td>
+        <td>{{transaction.balance}}</td>
+        <td>{{transaction.date}}</td>
+    </tr>
+</table>

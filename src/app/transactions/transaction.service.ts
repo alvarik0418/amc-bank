@@ -1,7 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
 import { Transaction } from './transaction';
+
+
+export type TransactionNew = Omit<Transaction, 'status'|'balance'|'date'>;
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +12,10 @@ import { Transaction } from './transaction';
 export class TransactionService {
 
   private endpoint = "http://localhost:3000/transactions";
+
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type':'application/json'})
+  };
 
   constructor(private http: HttpClient) { }
 
@@ -25,5 +32,11 @@ export class TransactionService {
       pipe(
         catchError(this.handleError<Transaction[]>('Get Transactions',[]))
       );
+  }
+
+  create(transaction: TransactionNew): Observable<any>{
+    return this.http.post<any>(this.endpoint, transaction, this.httpOptions).pipe(
+      catchError(this.handleError<any>('Create transaction'))
+    );
   }
 }

@@ -38,6 +38,9 @@ export class DashboardComponent {
           }
           this.totalBalance = element.balance          
         })
+        this.totalBalance = parseFloat(this.totalBalance.toFixed(2));
+        this.totalWithdrawal = parseFloat(this.totalWithdrawal.toFixed(2));;
+        this.totalDeposits = parseFloat(this.totalDeposits.toFixed(2));;
       }
     );
   }

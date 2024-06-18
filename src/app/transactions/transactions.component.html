@@ -1,29 +1,33 @@
 <h2>Transactions</h2>
 
-<button type="button" routerLink="/transactions/new">New</button>
-<table>
-    <tr>
-        <!--<th>Id</th>-->
-        <th>Type</th>
-        <th>Source</th>
-        <th>Destination</th>
-        <th>Amount</th>
-        <th>Category</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Balance</th>
-        <th>Date</th>
-    </tr>
-    <tr *ngFor="let transaction of transactions">
-        <!--<td>{{transaction.id}}</td>-->
-        <td>{{transaction.type}}</td>
-        <td>{{transaction.source}}</td>
-        <td>{{transaction.destination}}</td>
-        <td>{{transaction.amount}}</td>
-        <td>{{transaction.category}}</td>
-        <td>{{transaction.description}}</td>
-        <td>{{transaction.status}}</td>
-        <td>{{transaction.balance}}</td>
-        <td>{{transaction.date}}</td>
-    </tr>
+<button type="button" class="btn btn-secondary" routerLink="/transactions/new">New</button>
+<table class="table">
+    <thead>
+        <tr>
+            <!--<th>Id</th>-->
+            <th scope="col" >Type</th>
+            <th scope="col" >Source</th>
+            <th scope="col" >Destination</th>
+            <th scope="col" >Amount</th>
+            <th scope="col" >Category</th>
+            <th scope="col" >Description</th>
+            <th scope="col" >Status</th>
+            <th scope="col" >Balance</th>
+            <th scope="col" >Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of transactions">
+            <!--<td>{{transaction.id}}</td>-->
+            <td scope="row">{{transaction.type}}</td>
+            <td scope="row">{{transaction.source}}</td>
+            <td scope="row">{{transaction.destination}}</td>
+            <td scope="row">{{transaction.amount}}</td>
+            <td scope="row">{{transaction.category}}</td>
+            <td scope="row">{{transaction.description}}</td>
+            <td scope="row">{{transaction.status}}</td>
+            <td scope="row">{{transaction.balance}}</td>
+            <td scope="row">{{transaction.date}}</td>
+        </tr>
+    </tbody>
 </table>

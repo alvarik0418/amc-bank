@@ -2,7 +2,6 @@ import { Location, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Transaction } from '../transaction';
-import { ActivatedRoute } from '@angular/router';
 import { TransactionNew, TransactionService } from '../transaction.service';
 import { UserService } from '../../sign-up/user.service';
 
@@ -25,7 +24,7 @@ export class TransactionFormComponent {
     public transactionFormGroup =new FormGroup({
       type: new FormControl('', Validators.required),
       source: new FormControl('', Validators.required),
-      destination: new FormControl({value: '', disabled: true},[Validators.maxLength(10)]),
+      destination: new FormControl({value: '', disabled: true},),
       category: new FormControl(
         '', 
         [Validators.required, 
@@ -42,7 +41,7 @@ export class TransactionFormComponent {
         Validators.minLength(3), 
         Validators.maxLength(50),
        ]),
-    })
+    }, {updateOn: 'blur'})
 
     constructor(private transactionService: TransactionService,
                 private userService:UserService,
@@ -50,8 +49,10 @@ export class TransactionFormComponent {
     ){}
 
     ngOnInit(): void{
-      this.getAccounts();
-     // this.transactionFormGroup.reset();
+      this.getAccounts();   
+      this.selectedType = 'Deposit';
+      this.transactionFormGroup.controls.type.setValue(this.selectedType);
+      this.onSelected(this.selectedType);
     }
 
     getAccounts():void {
@@ -59,31 +60,38 @@ export class TransactionFormComponent {
     }
 
     onSubmit(): void {
-      const transactionNew = this.transactionFormGroup.value as TransactionNew;
-      this.transactionService.create(transactionNew).subscribe(() => this.gotoBack());
+      if (this.transactionFormGroup.valid && !this.transactionFormGroup.pristine){
+        const transactionNew = this.transactionFormGroup.value as TransactionNew;
+        this.transactionService.create(transactionNew).subscribe(() => this.gotoBack());
+      }      
     }
 
     onSelected(value:string) {
       this.selectedType = value;
-      /*this.transactionFormGroup.get('source')?.reset();
-      this.transactionFormGroup.get('destination')?.reset();     
-      */
+
+      this.transactionFormGroup.controls.source.reset();
+      this.transactionFormGroup.controls.destination.reset();
+
       switch(value){
         case "Withdrawal":
-          //this.disabled = true;
-          this.transactionFormGroup.get('destination')?.disable;
+          this.transactionFormGroup.controls.destination.disable();
           break;
         case "Deposit":
-          //this.disabled = false;
-          this.transactionFormGroup.get('destination')?.enable;
+          this.transactionFormGroup.controls.destination.enable();
           break;
         default:
-          //this.disabled = true;
-          this.transactionFormGroup.get('destination')?.disable;
           break;
       }
-      this.transactionFormGroup.get('destination')?.updateOn;
-      
+
+      this.transactionFormGroup.controls.source.updateValueAndValidity();
+    }
+
+    onSelectedSource() {
+      this.transactionFormGroup.updateValueAndValidity();    
+    }
+
+    focusOutFunction(){
+      this.transactionFormGroup.updateValueAndValidity();
     }
 
     gotoBack(){

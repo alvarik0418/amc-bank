@@ -7,10 +7,10 @@
     </div>
     <div class="form-group" >
         <label for="source">Source</label>
-        <select name="source" id="source" class="form-control" formControlName="source" *ngIf="selectedType == 'Withdrawal'">
+        <select name="source" id="source" class="form-control" formControlName="source" *ngIf="selectedType == 'Withdrawal'" (change)="onSelectedSource()">
             <option *ngFor="let account of accounts" [value]="account">{{account}}</option>
         </select>
-        <input type="text" id="source" class="form-control"  formControlName="source" *ngIf="selectedType == 'Deposit'">
+        <input type="text" id="source" class="form-control"  formControlName="source" *ngIf="selectedType == 'Deposit'" (focusout)="focusOutFunction()">
     </div>    
     <div class="form-group">
         <label for="destination">Destination</label>

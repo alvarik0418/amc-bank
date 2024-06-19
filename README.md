@@ -20,10 +20,10 @@ It is adjusted so that transactions update the balance and validate the transact
 
 Replace the logic of the create constant, with this:
 
-const create = async (payload) => {
-     const transactions = await readJson(COLLECTION_PATH)
-     let status = 'Success'
-     const balance = transactions.at(-1).balance
+    const create = async (payload) => {
+         const transactions = await readJson(COLLECTION_PATH)
+         let status = 'Success'
+         const balance = transactions.at(-1).balance
     
      if (payload.amount > balance && payload.type === 'Withdrawal') {
        throw new Error(`${JSON_PROBLEM_MARKER}: ${JSON.stringify(ERRORS['insufficient-funds'](balance, payload.amount))}`)
@@ -48,4 +48,4 @@ const create = async (payload) => {
      await writeJson(COLLECTION_PATH, transactions)
     
      return transaction
-}
+     }

@@ -6,22 +6,46 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Anotation API Server
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+An update is made to the api server, in the transactions.model.js file.
 
-## Build
+It is adjusted so that transactions update the balance and validate the transaction amount greater than the balance when the transaction is of the Withdrawal type.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Replace the logic of the create constant, with this:
 
-## Running unit tests
+An update is made to the api server, in the transactions.model.js file.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+It is adjusted so that transactions update the balance and validate the transaction amount greater than the balance when the transaction is of the Withdrawal type.
 
-## Running end-to-end tests
+Replace the logic of the create constant, with this:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+const create = async (payload) => {
+     const transactions = await readJson(COLLECTION_PATH)
+     let status = 'Success'
+     const balance = transactions.at(-1).balance
+    
+     if (payload.amount > balance && payload.type === 'Withdrawal') {
+       throw new Error(`${JSON_PROBLEM_MARKER}: ${JSON.stringify(ERRORS['insufficient-funds'](balance, payload.amount))}`)
+     }
+    
+     if (payload.type === 'Withdrawal') {
+       payload.balance = balance - payload.amount
+     }
+     else if(payload.type === 'Deposit'){
+       payload.balance = balance + payload.amount
+     }
+    
+     const transaction = {
+       id: uuidv4(),
+       ...payload,
+       status,
+       date: (new Date()).getTime()
+     }
+    
+     transactions.push(transaction)
+    
+     await writeJson(COLLECTION_PATH, transactions)
+    
+     return transaction
+}

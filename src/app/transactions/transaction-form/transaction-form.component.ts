@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Transaction } from '../transaction';
 import { TransactionNew, TransactionService } from '../transaction.service';
 import { UserService } from '../../sign-up/user.service';
+import { MessageService } from '../../messages/message.service';
 
 @Component({
   selector: 'app-transaction-form',
@@ -34,7 +35,8 @@ export class TransactionFormComponent {
       amount: new FormControl(
         0, [Validators.required, 
         Validators.minLength(3), 
-        Validators.maxLength(50),
+        Validators.maxLength(20),
+        Validators.min(1)
        ]),
       description: new FormControl(
         '', [Validators.required, 
@@ -45,6 +47,7 @@ export class TransactionFormComponent {
 
     constructor(private transactionService: TransactionService,
                 private userService:UserService,
+                private messageService: MessageService,
                 private location: Location
     ){}
 
@@ -53,6 +56,7 @@ export class TransactionFormComponent {
       this.selectedType = 'Deposit';
       this.transactionFormGroup.controls.type.setValue(this.selectedType);
       this.onSelected(this.selectedType);
+      this.messageService.clear();
     }
 
     getAccounts():void {

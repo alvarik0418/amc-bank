@@ -5,15 +5,15 @@
     <thead>
         <tr>
             <!--<th>Id</th>-->
-            <th scope="col" >Type</th>
-            <th scope="col" >Source</th>
-            <th scope="col" >Destination</th>
-            <th scope="col" >Amount</th>
-            <th scope="col" >Category</th>
-            <th scope="col" >Description</th>
-            <th scope="col" >Status</th>
-            <th scope="col" >Balance</th>
-            <th scope="col" >Date</th>
+            <th scope="col" (click)="onChangeOrder('type')">Type <span [ngClass]="orderDirection.type ? 'order-pointer-down' : 'order-pointer-up'"></span></th>
+            <th scope="col" (click)="onChangeOrder('source')">Source <span [ngClass]="orderDirection.source ? 'order-pointer-down' : 'order-pointer-up'"></span></th>
+            <th scope="col">Destination</th>
+            <th scope="col">Amount</th>
+            <th scope="col" (click)="onChangeOrder('category')">Category <span [ngClass]="orderDirection.category ? 'order-pointer-down' : 'order-pointer-up'"></span></th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">Balance</th>
+            <th scope="col">Date</th>
         </tr>
     </thead>
     <tbody>
